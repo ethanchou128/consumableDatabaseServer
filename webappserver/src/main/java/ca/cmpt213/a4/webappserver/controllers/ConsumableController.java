@@ -1,12 +1,16 @@
 package ca.cmpt213.a4.webappserver.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ca.cmpt213.a4.webappserver.model.Consumable;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class ConsumableController {
+    private List<Consumable> consumables = new ArrayList<>();
+    private AtomicLong nextId = new AtomicLong();
 
     //testing method, remove later
     @RequestMapping
@@ -16,8 +20,11 @@ public class ConsumableController {
 
     //post mappings, required by project
     @PostMapping("/addItem")
-    public void addItem() {
-
+    public Consumable addItem(@RequestBody Consumable consumable) {
+        //set pledge to have next id
+        consumable.setId(nextId.incrementAndGet());
+        consumables.add(consumable);
+        return consumable;
     }
 
     @PostMapping("/removeItem")
@@ -31,8 +38,8 @@ public class ConsumableController {
     }
 
     @GetMapping("/listAll")
-    public void listAllItems() {
-
+    public List<Consumable> listAllItems() {
+        return consumables;
     }
 
     @GetMapping("/listExpired")

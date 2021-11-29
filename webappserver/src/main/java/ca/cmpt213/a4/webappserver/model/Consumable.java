@@ -4,12 +4,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Consumable implements Comparable<Consumable> {
+    private long id;
     private String consumableType;
     private String name;
     private String notes;
     private double price;
     private double mass;
     private LocalDateTime expiryDate;
+
+    public Consumable() {
+
+    }
+    /**
+     * retrieves id of particular item
+     * @return consumable's id field
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * sets consumable id stored in field
+     * @param id new id of field passed in
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * retrieves the consumable type stored in the field
