@@ -1,11 +1,20 @@
-#add new user
-curl -i -H "Content-Type: application/json" -X POST -d "{
-    "consumableType": "Drink",
-    "name": "milk",
-    "notes": "2%",
-    "price": 4.99,
-    "mass": 4000.0,
-    "expiryDate": "2021-11-02T23:59"
-}" localhost:8080/addItem
+#ping user
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/ping
 
-curl -i -H "Content-Type: application/json" -X POST -d "{\"name\": \"Joe\", \"age\": 12}" localhost:8080/addKid
+#add new item
+curl -i -H "Content-Type: application/json" -X POST -d "{\"consumableType\": \"Drink\", \"name\": \"milk\", \"notes\": \"2%\", \"price\": 4.99, \"mass\": 4000.0, \"expiryDate\": \"2021-11-02T23:59\"}" localhost:8080/addItem
+
+#list all items (in messy json format)
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/listAll
+
+#remove an item and return updated list
+curl -i -H "Content-Type: application/json" -X POST localhost:8080/removeItem/3
+
+#list all expired items (in messy json format)
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/listExpired
+
+#list all non-expired items (in messy json format)
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/listNonExpired
+
+#list items expiring in 7 days (in messy json format)
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/listExpiringIn7Days
