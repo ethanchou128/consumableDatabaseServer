@@ -1,5 +1,6 @@
 package ca.cmpt213.a4.webappserver.controllers;
 
+import ca.cmpt213.a4.webappserver.control.ConsumableManager;
 import ca.cmpt213.a4.webappserver.model.Consumable;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class ConsumableController {
     private ArrayList<Consumable> consumables = new ArrayList<>();
+    private ConsumableManager consumableManager = ConsumableManager.getInstance();
     private AtomicLong nextId = new AtomicLong();
 
     //testing method, remove later
@@ -25,64 +27,39 @@ public class ConsumableController {
 
     //post mappings, required by project
     @PostMapping("/addItem")
-    public Consumable addItem(@RequestBody Consumable consumable) {
+    public ArrayList<Consumable> addItem(@RequestBody Consumable consumable) {
         //set pledge to have next id
         consumable.setId(nextId.incrementAndGet());
-        consumables.add(consumable);
-        return consumable;
+        consumableManager.addConsumable(consumable);
+        return consumableManager.getConsumablesList();
     }
 
-    @PostMapping("/removeItem/{name}")
+    @PostMapping("/removeItem/{index}")
     public ArrayList<Consumable> removeItem(
-            @PathVariable("name") String itemName
+            @PathVariable("index") int index
     ) {
-        for(Consumable consumable : consumables) {
-            if (consumable.getName().equals(itemName)) {
-                consumables.remove(consumable);
-                return consumables;
-            }
-        }
-        throw new IllegalArgumentException();
+        consumableManager.deleteConsumable(index);
+        return consumableManager.getConsumablesList();
     }
 
     @GetMapping("/listAll")
     public ArrayList<Consumable> listAllItems() {
-        return consumables;
+        return consumableManager.getConsumablesList();
     }
 
     @GetMapping("/listExpired")
     public ArrayList<Consumable> listExpiredItems() {
-        ArrayList<Consumable> expiredItems = new ArrayList<>();
-        for (Consumable consumable : consumables) {
-            if(consumable.getExpiryDate().isBefore(LocalDateTime.now())) {
-                expiredItems.add(consumable);
-            }
-        }
-        return expiredItems;
+        return consumableManager.expiredItemsList();
     }
 
     @GetMapping("/listNonExpired")
     public ArrayList<Consumable> listNonExpiredItems() {
-        ArrayList<Consumable> nonExpiredItems = new ArrayList<>();
-        for (Consumable consumable : consumables) {
-            if (consumable.getExpiryDate().isAfter(LocalDateTime.now())) {
-                nonExpiredItems.add(consumable);
-            }
-        }
-        return nonExpiredItems;
+        return consumableManager.nonExpiredItemsList();
     }
 
     @GetMapping("/listExpiringIn7Days")
     public ArrayList<Consumable> listItemsExpiringIn7Days() {
-        ArrayList<Consumable> itemsExpiringIn7Days = new ArrayList<>();
-        LocalDateTime expiryDatePlusSevenDays = LocalDateTime.now().plusDays(7);
-        for (Consumable consumable : consumables) {
-            if(expiryDatePlusSevenDays.isAfter(consumable.getExpiryDate())
-                    && LocalDateTime.now().isBefore(consumable.getExpiryDate())) {
-                itemsExpiringIn7Days.add(consumable);
-            }
-        }
-        return itemsExpiringIn7Days;
+        return consumableManager.expiringIn7DaysList();
     }
 
     @GetMapping("/exit")
