@@ -32,12 +32,12 @@ public class ConsumableController {
         return consumable;
     }
 
-    @PostMapping("/removeItem/{id}")
+    @PostMapping("/removeItem/{name}")
     public ArrayList<Consumable> removeItem(
-            @PathVariable("id") long consumableId
+            @PathVariable("name") String itemName
     ) {
         for(Consumable consumable : consumables) {
-            if (consumable.getId() == consumableId) {
+            if (consumable.getName().equals(itemName)) {
                 consumables.remove(consumable);
                 return consumables;
             }
