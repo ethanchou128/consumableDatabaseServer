@@ -12,9 +12,6 @@ public class Consumable implements Comparable<Consumable> {
     private double mass;
     private LocalDateTime expiryDate;
 
-    public Consumable() {
-
-    }
     /**
      * retrieves id of particular item
      * @return consumable's id field
