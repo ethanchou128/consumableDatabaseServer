@@ -5,12 +5,14 @@ import ca.cmpt213.a4.webappserver.model.Consumable;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * class that contains all the curl mappings that are utilized (by the client
+ * side GUI) and calls upon the consumable manager.
+ */
 @RestController
 public class ConsumableController {
     private ConsumableManager consumableManager = ConsumableManager.getInstance();
-    private AtomicLong nextId = new AtomicLong();
 
     /**
      * get mapping to provide a simple ping alerting user the system is ready

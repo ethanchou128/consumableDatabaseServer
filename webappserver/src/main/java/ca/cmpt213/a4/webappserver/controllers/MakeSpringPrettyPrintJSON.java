@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Make the application return pretty-printed JSON (easier to debug)
  * COPIED FROM: https://stackoverflow.com/questions/36119852/spring-boot-actuator-pretty-print-json
+ * (from Dr. Brian Fraser's demo video provided in the assignment description)
  */
 @Configuration
 public class MakeSpringPrettyPrintJSON extends WebMvcConfigurationSupport {

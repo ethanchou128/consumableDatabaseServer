@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * server's consumable manager that generates the filtered consumable lists,
+ * and performs any logic that is called upon in the ConsumableController class.
+ */
 public class ConsumableManager {
     private static List<Consumable> consumableList = new ArrayList<>();
     private static List<Consumable> unfilteredConsumableList = new ArrayList<>();
