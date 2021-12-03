@@ -1,18 +1,58 @@
 [
   {
     "consumableType": "Food",
-    "name": "feces",
-    "notes": "poopy",
-    "price": 1000.0,
-    "mass": 214.0,
-    "expiryDate": "2021-12-28T00:30"
+    "name": "Steak",
+    "notes": "wagyu",
+    "price": 50.0,
+    "mass": 454.0,
+    "expiryDate": "2021-12-01T01:00"
+  },
+  {
+    "consumableType": "Food",
+    "name": "Chicken",
+    "notes": "breasts",
+    "price": 12.99,
+    "mass": 908.0,
+    "expiryDate": "2021-12-08T01:30"
+  },
+  {
+    "consumableType": "Food",
+    "name": "Instant Ramen",
+    "notes": "N/A",
+    "price": 0.99,
+    "mass": 120.0,
+    "expiryDate": "2021-12-10T00:30"
   },
   {
     "consumableType": "Drink",
-    "name": "urine",
-    "notes": "peepee",
-    "price": 122.0,
-    "mass": 2000.0,
-    "expiryDate": "2021-12-31T01:00"
+    "name": "Orange Juice",
+    "notes": "with pulp",
+    "price": 4.99,
+    "mass": 1100.0,
+    "expiryDate": "2021-12-28T11:30"
+  },
+  {
+    "consumableType": "Drink",
+    "name": "Orange Juice",
+    "notes": "pulp free",
+    "price": 4.99,
+    "mass": 1100.0,
+    "expiryDate": "2021-12-31T23:30"
+  },
+  {
+    "consumableType": "Food",
+    "name": "Cookies",
+    "notes": "oreos",
+    "price": 2.5,
+    "mass": 300.0,
+    "expiryDate": "2022-02-09T02:00"
+  },
+  {
+    "consumableType": "Food",
+    "name": "Goldfish",
+    "notes": "N/A",
+    "price": 2.99,
+    "mass": 350.0,
+    "expiryDate": "2022-05-10T01:00"
   }
 ]
