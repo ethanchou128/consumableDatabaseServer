@@ -28,7 +28,7 @@ public class ConsumableManager {
         return instance;
     }
 
-    public List<Consumable> getConsumablesList() {
+    public List<Consumable> getItemsList() {
         return consumableList;
     }
 
@@ -44,8 +44,24 @@ public class ConsumableManager {
         consumableList.remove(index);
     }
 
-    public ArrayList<Consumable> expiredItemsList() {
-        ArrayList<Consumable> expiredItems = new ArrayList<>();
+    public String createJSONStringOfArrayList(List<Consumable> filteredConsumableList) {
+        Gson myGson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class,
+                new TypeAdapter<LocalDateTime>() {
+                    @Override
+                    public void write(JsonWriter jsonWriter,
+                                      LocalDateTime localDateTime) throws IOException {
+                        jsonWriter.value(localDateTime.toString());
+                    }
+                    @Override
+                    public LocalDateTime read(JsonReader jsonReader) throws IOException {
+                        return LocalDateTime.parse(jsonReader.nextString());
+                    }
+                }).setPrettyPrinting().create();
+        return myGson.toJson(filteredConsumableList);
+    }
+
+    public List<Consumable> expiredItemsList() {
+        List<Consumable> expiredItems = new ArrayList<>();
         for (Consumable consumable : consumableList) {
             if(consumable.getExpiryDate().isBefore(LocalDateTime.now())) {
                 expiredItems.add(consumable);
@@ -74,23 +90,6 @@ public class ConsumableManager {
             }
         }
         return itemsExpiringIn7Days;
-    }
-
-    /**
-     * method to return whether there is a need for a new file to be written
-     * if the file(name) passed in cannot be read, it returns false which
-     * indicates that a brand new file is written after program is exited.
-     * @param filename the file name passed into the readfile method.
-     * @return whether file is able to be read or not.
-     */
-    public static boolean loadFile(String filename) {
-        try {
-            String fileInput = "./" + filename;
-            readFile(fileInput);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /**
@@ -156,6 +155,7 @@ public class ConsumableManager {
     public static void separateConsumableList(){
         unfilteredConsumableList.clear();
         for(Consumable c : consumableList) {
+            long consumableId = c.getId();
             String consumableType = c.getConsumableType();
             String consumableName = c.getName();
             String consumableNotes = c.getNotes();
@@ -170,6 +170,7 @@ public class ConsumableManager {
             LocalDateTime expiryDate = c.getExpiryDate();
 
             Consumable separatedItem = new Consumable();
+            separatedItem.setId(consumableId);
             separatedItem.setConsumableType(consumableType);
             separatedItem.setName(consumableName);
             separatedItem.setNotes(consumableNotes);
@@ -186,6 +187,7 @@ public class ConsumableManager {
      */
     public static void repairConsumableList() {
         for(Consumable c : unfilteredConsumableList) {
+            long consumableId = c.getId();
             String consumableType = c.getConsumableType();
             String consumableName = c.getName();
             String consumableNotes = c.getNotes();
@@ -200,6 +202,7 @@ public class ConsumableManager {
                 newConsumable = new Drink();
                 ((Drink)newConsumable).setVolume(consumableMass);
             }
+            newConsumable.setId(consumableId);
             newConsumable.setConsumableType(consumableType);
             newConsumable.setName(consumableName);
             newConsumable.setNotes(consumableNotes);

@@ -2,25 +2,21 @@ package ca.cmpt213.a4.webappserver.controllers;
 
 import ca.cmpt213.a4.webappserver.control.ConsumableManager;
 import ca.cmpt213.a4.webappserver.model.Consumable;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class ConsumableController {
-    private ArrayList<Consumable> consumables = new ArrayList<>();
     private ConsumableManager consumableManager = ConsumableManager.getInstance();
     private AtomicLong nextId = new AtomicLong();
-
-    //testing method, remove later
-    @RequestMapping
-    public String testTestTesticles() {
-        return "Who's Joe?";
-    }
 
     @GetMapping("/ping")
     public String pingUser() {
@@ -28,47 +24,48 @@ public class ConsumableController {
     }
 
     @GetMapping("/load")
-    public void loadConsumableList() {
+    public String loadConsumableList() {
         if(consumableManager.getConsumableListSize() == 0) {
             ConsumableManager.readFile("./text.json");
         }
+        return consumableManager.createJSONStringOfArrayList(consumableManager.getItemsList());
     }
 
     //post mappings, required by project
     @PostMapping("/addItem")
-    public List<Consumable> addItem(@RequestBody Consumable consumable) {
-        //set pledge to have next id
+    public String addItem(@RequestBody Consumable consumable) {
+        //set consumable to have next id
         consumable.setId(nextId.incrementAndGet());
         consumableManager.addConsumable(consumable);
-        return consumableManager.getConsumablesList();
+        return consumableManager.createJSONStringOfArrayList(consumableManager.getItemsList());
     }
 
     @PostMapping("/removeItem/{index}")
-    public List<Consumable> removeItem(
+    public String removeItem(
             @PathVariable("index") int index
     ) {
         consumableManager.deleteConsumable(index);
-        return consumableManager.getConsumablesList();
+        return consumableManager.createJSONStringOfArrayList(consumableManager.getItemsList());
     }
 
     @GetMapping("/listAll")
-    public List<Consumable> listAllItems() {
-        return consumableManager.getConsumablesList();
+    public String listAllItems() {
+        return consumableManager.createJSONStringOfArrayList(consumableManager.getItemsList());
     }
 
     @GetMapping("/listExpired")
-    public List<Consumable> listExpiredItems() {
-        return consumableManager.expiredItemsList();
+    public String listExpiredItems() {
+        return consumableManager.createJSONStringOfArrayList(consumableManager.expiredItemsList());
     }
 
     @GetMapping("/listNonExpired")
-    public List<Consumable> listNonExpiredItems() {
-        return consumableManager.nonExpiredItemsList();
+    public String listNonExpiredItems() {
+        return consumableManager.createJSONStringOfArrayList(consumableManager.nonExpiredItemsList());
     }
 
     @GetMapping("/listExpiringIn7Days")
-    public List<Consumable> listItemsExpiringIn7Days() {
-        return consumableManager.expiringIn7DaysList();
+    public String listItemsExpiringIn7Days() {
+        return consumableManager.createJSONStringOfArrayList(consumableManager.expiringIn7DaysList());
     }
 
     @GetMapping("/exit")

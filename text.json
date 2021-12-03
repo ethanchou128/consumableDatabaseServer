@@ -1,11 +1,56 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "consumableType": "Food",
-    "name": "sadf",
-    "notes": "qdwrf",
-    "price": 123.0,
+    "name": "Steak",
+    "notes": "N/A",
+    "price": 40.0,
     "mass": 0.0,
-    "expiryDate": "2021-12-11T01:00"
+    "expiryDate": "2021-12-01T02:30"
+  },
+  {
+    "id": 2,
+    "consumableType": "Food",
+    "name": "Chicken",
+    "notes": "legs",
+    "price": 12.0,
+    "mass": 0.0,
+    "expiryDate": "2021-12-09T01:00"
+  },
+  {
+    "id": 3,
+    "consumableType": "Drink",
+    "name": "Coke",
+    "notes": "Diet",
+    "price": 4.99,
+    "mass": 0.0,
+    "expiryDate": "2021-12-17T02:30"
+  },
+  {
+    "id": 5,
+    "consumableType": "Food",
+    "name": "Popcorn",
+    "notes": "Extra butter",
+    "price": 1.99,
+    "mass": 0.0,
+    "expiryDate": "2021-12-31T23:30"
+  },
+  {
+    "id": 1,
+    "consumableType": "Food",
+    "name": "Chips",
+    "notes": "BBQ",
+    "price": 2.99,
+    "mass": 250.0,
+    "expiryDate": "2021-11-01T02:30"
+  },
+  {
+    "id": 2,
+    "consumableType": "Drink",
+    "name": "orange juice",
+    "notes": "pulp",
+    "price": 5.99,
+    "mass": 1100.0,
+    "expiryDate": "2021-12-16T01:00"
   }
 ]
