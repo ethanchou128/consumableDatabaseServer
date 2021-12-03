@@ -4,29 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Consumable implements Comparable<Consumable> {
-    private long id;
     private String consumableType;
     private String name;
     private String notes;
     private double price;
     private double mass;
     private LocalDateTime expiryDate;
-
-    /**
-     * retrieves id of particular item
-     * @return consumable's id field
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * sets consumable id stored in field
-     * @param id new id of field passed in
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
 
     /**
      * retrieves the consumable type stored in the field
@@ -122,27 +105,6 @@ public class Consumable implements Comparable<Consumable> {
      */
     public void setExpiryDate(LocalDateTime date) {
         this.expiryDate = date;
-    }
-
-    /**
-     * method to set the date and time; converted using the LocalDateTime object
-     * numbers that are input are ensured valid by the textMenu code blocks.
-     * @param year expiry year passed in
-     * @param month expiry month passed in
-     * @param day expiry day passed in
-     */
-    public void convertDateTime(int year, int month, int day) {
-        this.expiryDate = LocalDateTime.of(year, month, day, 23, 59);
-    }
-
-    /**
-     * format expiry date to cleaner, userFriendly interpretation
-     * @param expiryDate expiry date stored by food object
-     * @return formatted date
-     */
-    public String formatExpiryDate(LocalDateTime expiryDate) {
-        DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return expiryDate.format(newFormat);
     }
 
     /**

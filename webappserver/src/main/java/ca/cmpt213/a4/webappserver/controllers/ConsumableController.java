@@ -2,15 +2,9 @@ package ca.cmpt213.a4.webappserver.controllers;
 
 import ca.cmpt213.a4.webappserver.control.ConsumableManager;
 import ca.cmpt213.a4.webappserver.model.Consumable;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -34,8 +28,6 @@ public class ConsumableController {
     //post mappings, required by project
     @PostMapping("/addItem")
     public String addItem(@RequestBody Consumable consumable) {
-        //set consumable to have next id
-        consumable.setId(nextId.incrementAndGet());
         consumableManager.addConsumable(consumable);
         return consumableManager.createJSONStringOfArrayList(consumableManager.getItemsList());
     }

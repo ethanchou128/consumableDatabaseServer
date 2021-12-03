@@ -14,6 +14,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConsumableManager {
@@ -29,6 +30,7 @@ public class ConsumableManager {
     }
 
     public List<Consumable> getItemsList() {
+        Collections.sort(consumableList);
         return consumableList;
     }
 
@@ -62,6 +64,7 @@ public class ConsumableManager {
 
     public List<Consumable> expiredItemsList() {
         List<Consumable> expiredItems = new ArrayList<>();
+        Collections.sort(expiredItems);
         for (Consumable consumable : consumableList) {
             if(consumable.getExpiryDate().isBefore(LocalDateTime.now())) {
                 expiredItems.add(consumable);
@@ -72,6 +75,7 @@ public class ConsumableManager {
 
     public List<Consumable> nonExpiredItemsList() {
         List<Consumable> nonExpiredItems = new ArrayList<>();
+        Collections.sort(nonExpiredItems);
         for (Consumable consumable : consumableList) {
             if (consumable.getExpiryDate().isAfter(LocalDateTime.now())) {
                 nonExpiredItems.add(consumable);
@@ -82,6 +86,7 @@ public class ConsumableManager {
 
     public List<Consumable> expiringIn7DaysList() {
         List<Consumable> itemsExpiringIn7Days = new ArrayList<>();
+        Collections.sort(itemsExpiringIn7Days);
         LocalDateTime expiryDatePlusSevenDays = LocalDateTime.now().plusDays(7);
         for (Consumable consumable : consumableList) {
             if(expiryDatePlusSevenDays.isAfter(consumable.getExpiryDate())
@@ -155,22 +160,14 @@ public class ConsumableManager {
     public static void separateConsumableList(){
         unfilteredConsumableList.clear();
         for(Consumable c : consumableList) {
-            long consumableId = c.getId();
             String consumableType = c.getConsumableType();
             String consumableName = c.getName();
             String consumableNotes = c.getNotes();
             double consumablePrice = c.getPrice();
-
             double consumableMass = c.getMass();
-//            if (c.getClass().equals(Food.class)) {
-//                consumableMass = ((Food) c).getWeight();
-//            } else {
-//                consumableMass = ((Drink) c).getVolume();
-//            }
             LocalDateTime expiryDate = c.getExpiryDate();
 
             Consumable separatedItem = new Consumable();
-            separatedItem.setId(consumableId);
             separatedItem.setConsumableType(consumableType);
             separatedItem.setName(consumableName);
             separatedItem.setNotes(consumableNotes);
@@ -187,7 +184,6 @@ public class ConsumableManager {
      */
     public static void repairConsumableList() {
         for(Consumable c : unfilteredConsumableList) {
-            long consumableId = c.getId();
             String consumableType = c.getConsumableType();
             String consumableName = c.getName();
             String consumableNotes = c.getNotes();
@@ -202,7 +198,6 @@ public class ConsumableManager {
                 newConsumable = new Drink();
                 ((Drink)newConsumable).setVolume(consumableMass);
             }
-            newConsumable.setId(consumableId);
             newConsumable.setConsumableType(consumableType);
             newConsumable.setName(consumableName);
             newConsumable.setNotes(consumableNotes);
