@@ -29,23 +29,41 @@ public class ConsumableManager {
         return instance;
     }
 
-    public List<Consumable> getItemsList() {
-        Collections.sort(consumableList);
-        return consumableList;
-    }
-
+    /**
+     * method to get the size of the arraylist
+     * @return the size of list
+     */
     public int getConsumableListSize() {
         return consumableList.size();
     }
 
+    /**
+     * method to add a new consumable into the server
+     * @param newConsumable the consumable in question (passed from
+     *                      client side) to be added into the array list
+     */
     public void addConsumable (Consumable newConsumable) {
         consumableList.add(newConsumable);
     }
 
+    /**
+     * method to add a new consumable into the server
+     * @param index the index of the consumable to deleted from
+     *              the array list
+     */
     public void deleteConsumable(int index) {
         consumableList.remove(index);
     }
 
+    /**
+     * helper method to generate a JSON string object of an arraylist with
+     * the corresponding filtered array list that is requested by the client
+     * in the GUI
+     * @param filteredConsumableList the filtered array list which has a JSON string
+     *                               generated for it
+     * @return the string object which is then passed back into the client and
+     * then read/parsed accordingly.
+     */
     public String createJSONStringOfArrayList(List<Consumable> filteredConsumableList) {
         Gson myGson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class,
                 new TypeAdapter<LocalDateTime>() {
@@ -62,6 +80,20 @@ public class ConsumableManager {
         return myGson.toJson(filteredConsumableList);
     }
 
+    /**
+     * method to return an arraylist of all items regardless of
+     * the expiry date
+     * @return array list of all items
+     */
+    public List<Consumable> getItemsList() {
+        Collections.sort(consumableList);
+        return consumableList;
+    }
+
+    /**
+     * method to return an arraylist of all expired items
+     * @return list of expired items
+     */
     public List<Consumable> expiredItemsList() {
         List<Consumable> expiredItems = new ArrayList<>();
         Collections.sort(expiredItems);
@@ -73,6 +105,10 @@ public class ConsumableManager {
         return expiredItems;
     }
 
+    /**
+     * method to return an arraylist of all non-expired items
+     * @return list of non-expired items
+     */
     public List<Consumable> nonExpiredItemsList() {
         List<Consumable> nonExpiredItems = new ArrayList<>();
         Collections.sort(nonExpiredItems);
@@ -84,6 +120,10 @@ public class ConsumableManager {
         return nonExpiredItems;
     }
 
+    /**
+     * method to return arraylist of all items expiring in <= 7 days
+     * @return list of all items expiring in <= 7 days
+     */
     public List<Consumable> expiringIn7DaysList() {
         List<Consumable> itemsExpiringIn7Days = new ArrayList<>();
         Collections.sort(itemsExpiringIn7Days);
