@@ -1,0 +1,32 @@
+USER MANUAL FOR THE NO MOLD = GOLD DATABASE
+
+Upon startup, the program will show the main user interface with all items listed.
+
+The main screen will have 4 buttons placed at the top of the screen:
+
+"All" - this button turns off all listing item filters and lists all items in order
+by earliest expiry date, whether the date has passed or not.
+
+"Expired" - this button turns on a filter to only show the expired items in the system,
+by earliest expiry date. The sooner it expired, the higher up it is on the list.
+
+"Non-Expired Items" - this button filters out all the non-expired items and only shows the
+items that are still fresh. The sooner it expires, the higher it is on the list.
+
+"Expires within 7 Days" - this button only displays the items that expire within the current
+date and 7 days past it. The sooner it expires, the higher it is on the list.
+
+The main screen will also have three buttons placed at the bottom of the screen, as well as a
+helpful label showing the current date:
+
+"Add Item" - this button will open a JDialog asking for user input for each field of a new item
+that the user wants to add. If he/she changes their mind and does not want to add anymore, simply
+click on the exit button to return to the main listing menu safely.
+
+"Delete Item" - this button also opens a JDialog, but instead it asks for the item number of the item
+that the user wants to remove. If an invalid input is attempted to be input, a helpful dialog box pops up
+asking the user to try again. Similar to the add item interface, if the user changes his/her mind, simply
+just click cancel button to return to main menu safely.
+
+"Quit" - this button simply exits the program while simultaneously writing all the items in the database into
+a new (or existing) .json file. Offers an alternative for closing the window with the X in top right.
